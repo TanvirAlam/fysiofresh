@@ -18,6 +18,9 @@ describe('App.vue', () => {
       },
     })
 
-    expect(wrapper.text()).toContain('Welcome to Fysiofresh Kanban Board')
+    expect(wrapper.text()).toContain('Fysiofresh Kanban Board')
+    expect(wrapper.text()).toContain('To Do')
+    expect(wrapper.text()).toContain('In Progress')
+    expect(wrapper.text()).toContain('Done')
   })
 })
