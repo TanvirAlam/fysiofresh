@@ -8,7 +8,13 @@ interface Props {
   tasks: Task[]
 }
 
+interface Emits {
+  (e: 'edit', task: Task): void
+  (e: 'delete', taskId: string): void
+}
+
 const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 
 const taskCount = computed(() => props.tasks.length)
 </script>
@@ -37,6 +43,8 @@ const taskCount = computed(() => props.tasks.length)
         v-for="task in tasks"
         :key="task.id"
         :task="task"
+        @edit="emit('edit', $event)"
+        @delete="emit('delete', $event)"
       />
     </v-card-text>
   </v-card>

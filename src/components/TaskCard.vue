@@ -5,7 +5,21 @@ interface Props {
   task: Task
 }
 
-defineProps<Props>()
+interface Emits {
+  (e: 'edit', task: Task): void
+  (e: 'delete', taskId: string): void
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
+
+const handleEdit = () => {
+  emit('edit', props.task)
+}
+
+const handleDelete = () => {
+  emit('delete', props.task.id)
+}
 </script>
 
 <template>
@@ -34,6 +48,7 @@ defineProps<Props>()
         size="x-small"
         variant="text"
         density="comfortable"
+        @click.stop="handleEdit"
       ></v-btn>
       <v-btn
         icon="mdi-delete"
@@ -41,6 +56,7 @@ defineProps<Props>()
         variant="text"
         density="comfortable"
         color="error"
+        @click.stop="handleDelete"
       ></v-btn>
     </v-card-actions>
   </v-card>

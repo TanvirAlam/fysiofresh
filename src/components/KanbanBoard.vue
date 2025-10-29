@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import type { Task } from '@/types'
 import { useTaskStore } from '@/composables/useTaskStore'
 import KanbanColumn from './KanbanColumn.vue'
 
+interface Emits {
+  (e: 'edit', task: Task): void
+  (e: 'delete', taskId: string): void
+}
+
 const store = useTaskStore()
+const emit = defineEmits<Emits>()
 </script>
 
 <template>
@@ -17,6 +24,8 @@ const store = useTaskStore()
         <kanban-column
           :column="column"
           :tasks="store.getTasksByStatus(column.id).value"
+          @edit="emit('edit', $event)"
+          @delete="emit('delete', $event)"
         />
       </v-col>
     </v-row>

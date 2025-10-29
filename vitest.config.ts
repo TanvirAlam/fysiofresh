@@ -14,7 +14,8 @@ export default mergeConfig(
         deps: {
           inline: ['vuetify']
         }
-      }
+      },
+      setupFiles: ['./vitest.setup.ts']
     }
   })
 )
