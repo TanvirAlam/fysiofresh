@@ -5,6 +5,12 @@
 A simple **Kanban Board** application built with **Vue 3**, **Vuetify**, and the **Composition API**.  
 This project was developed as part of a technical assignment for the **Software Developer position at Fysiofresh**.
 
+## 🌐 Live Demo
+
+**[View Live Application →](https://fysiofresh-seven.vercel.app/)**
+
+The application is deployed on Vercel and fully functional with client-side state management.
+
 ---
 
 ## 🚀 Project Overview
@@ -28,21 +34,34 @@ It showcases front-end architecture, component-based design, and adherence to SO
 
 ## ⚙️ Features
 
-- 📋 **Kanban Board** with multiple status columns  
-  (e.g., To Do, In Progress, Done)
+- 📋 **Kanban Board** with 4 status columns:
+  - **Backlog** (pink)
+  - **Doing** (yellow)
+  - **Review** (green)
+  - **Done** (blue)
 
 - 🎯 **Task Cards** with:
   - Title  
-  - Description  
+  - Description
+  - Quick action buttons (Edit & Delete)
 
-- 🧠 **Drag & Drop:** Move cards between columns easily
+- 🧠 **Drag & Drop:** Move cards between columns easily with visual feedback
 
 - ✏️ **CRUD Operations:**
-  - Add a new card  
-  - Edit existing cards  
-  - Delete cards  
+  - Create new tasks with dialog form
+  - Edit existing tasks
+  - Delete tasks with confirmation
+  - Move tasks between statuses
 
-- 💾 Local storage persistence *(optional feature)*
+- 🎨 **Modern UI:**
+  - Color-coded column headers
+  - Responsive grid layout (4 columns on desktop, stacked on mobile)
+  - Smooth animations and hover effects
+  - Toast notifications for user feedback
+
+- 🧪 **Comprehensive Testing:**
+  - 40 passing unit tests
+  - Component, integration, and store tests
 
 ---
 
@@ -57,18 +76,103 @@ It showcases front-end architecture, component-based design, and adherence to SO
 
 ---
 
-## 🧪 Testing (Optional)
+## 🧪 Testing
 
-Basic unit tests are implemented using **Vitest** for:
-- Component rendering
-- Event emission
-- State management logic
+Comprehensive unit tests are implemented using **Vitest** for:
+- Component rendering and interactions
+- Event emission and prop handling
+- State management logic (CRUD operations)
+- Drag & drop functionality
+- Form validations
+
+**Test Coverage:** 40 passing tests across 6 test suites
 
 Run tests locally:
 
 ```bash
 npm run test
 ```
+
+Run tests with UI:
+
+```bash
+npm run test:ui
+```
+
+---
+
+## 🛠️ Development Setup
+
+### Prerequisites
+- Node.js `^20.19.0 || >=22.12.0`
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/fysiofresh.git
+cd fysiofresh
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start development server:
+```bash
+npm run dev
+```
+
+4. Build for production:
+```bash
+npm run build
+```
+
+5. Preview production build:
+```bash
+npm run preview
+```
+
+6. Run type checking:
+```bash
+npm run type-check
+```
+
+---
+
+## 🚀 Deployment
+
+The application is deployed on **Vercel** for easy hosting and automatic deployments.
+
+### Deployment Steps:
+
+1. **Build the project:**
+   ```bash
+   npm run build
+   ```
+   This creates an optimized production build in the `dist/` directory.
+
+2. **Deploy to Vercel:**
+   - Connect your GitHub repository to Vercel
+   - Vercel automatically detects Vite configuration
+   - Every push to main branch triggers automatic deployment
+
+3. **Manual deployment (if needed):**
+   ```bash
+   vercel --prod
+   ```
+
+### Live Application
+
+✅ **Production URL:** [https://fysiofresh-seven.vercel.app/](https://fysiofresh-seven.vercel.app/)
+
+**Features:**
+- Client-side only (no backend required)
+- Fast global CDN delivery
+- Automatic HTTPS
+- Instant cache invalidation
 
 ---
 
@@ -111,9 +215,9 @@ Task:
       example: "Add JWT-based authentication with refresh tokens"
     status:
       type: string
-      enum: ["todo", "in-progress", "done"]
+      enum: ["backlog", "doing", "review", "done"]
       description: Current task status
-      example: "todo"
+      example: "backlog"
     createdAt:
       type: string
       format: date-time
@@ -146,7 +250,7 @@ Retrieve all tasks.
       "id": "550e8400-e29b-41d4-a716-446655440000",
       "title": "Implement user authentication",
       "description": "Add JWT-based authentication with refresh tokens",
-      "status": "todo",
+      "status": "backlog",
       "createdAt": "2025-01-15T10:30:00Z",
       "updatedAt": "2025-01-15T10:30:00Z"
     }
@@ -164,7 +268,7 @@ Retrieve all tasks.
 {
   "error": {
     "code": "INVALID_STATUS",
-    "message": "Invalid status filter. Allowed values: todo, in-progress, done",
+    "message": "Invalid status filter. Allowed values: backlog, doing, review, done",
     "details": {
       "field": "status",
       "value": "completed"
@@ -183,7 +287,7 @@ Create a new task.
 {
   "title": "Implement user authentication",
   "description": "Add JWT-based authentication with refresh tokens",
-  "status": "todo"
+  "status": "backlog"
 }
 ```
 
@@ -194,7 +298,7 @@ Create a new task.
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "title": "Implement user authentication",
     "description": "Add JWT-based authentication with refresh tokens",
-    "status": "todo",
+    "status": "backlog",
     "createdAt": "2025-01-15T10:30:00Z",
     "updatedAt": "2025-01-15T10:30:00Z"
   }
@@ -220,11 +324,11 @@ Create a new task.
 {
   "error": {
     "code": "INVALID_STATUS",
-    "message": "Status must be one of: todo, in-progress, done",
+    "message": "Status must be one of: backlog, doing, review, done",
     "details": {
       "field": "status",
       "value": "completed",
-      "allowedValues": ["todo", "in-progress", "done"]
+      "allowedValues": ["backlog", "doing", "done"]
     }
   }
 }
@@ -241,7 +345,7 @@ Update an existing task (partial update).
 **Request Body:**
 ```json
 {
-  "status": "in-progress"
+  "status": "doing"
 }
 ```
 
@@ -252,7 +356,7 @@ Update an existing task (partial update).
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "title": "Implement user authentication",
     "description": "Add JWT-based authentication with refresh tokens",
-    "status": "in-progress",
+    "status": "doing",
     "createdAt": "2025-01-15T10:30:00Z",
     "updatedAt": "2025-01-15T14:25:00Z"
   }
@@ -278,11 +382,11 @@ Update an existing task (partial update).
 {
   "error": {
     "code": "INVALID_STATUS",
-    "message": "Status must be one of: todo, in-progress, done",
+    "message": "Status must be one of: backlog, doing, review, done",
     "details": {
       "field": "status",
       "value": "archived",
-      "allowedValues": ["todo", "in-progress", "done"]
+      "allowedValues": ["backlog", "doing", "done"]
     }
   }
 }
@@ -340,7 +444,7 @@ Delete a task.
 
 3. **Status**:
    - Required on creation
-   - Must be one of: `"todo"`, `"in-progress"`, `"done"`
+   - Must be one of: `"backlog"`, `"doing"`, `"done"`
    - Case-sensitive
 
 4. **ID**:
