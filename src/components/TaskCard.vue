@@ -20,6 +20,19 @@ const handleEdit = () => {
 const handleDelete = () => {
   emit('delete', props.task.id)
 }
+
+// Drag and drop handlers
+const handleDragStart = (event: DragEvent) => {
+  if (event.dataTransfer) {
+    event.dataTransfer.effectAllowed = 'move'
+    event.dataTransfer.setData('taskId', props.task.id)
+    event.dataTransfer.setData('taskStatus', props.task.status)
+  }
+}
+
+const handleDragEnd = () => {
+  // Clean up any drag state if needed
+}
 </script>
 
 <template>
@@ -27,6 +40,9 @@ const handleDelete = () => {
     class="task-card mb-3"
     elevation="2"
     hover
+    draggable="true"
+    @dragstart="handleDragStart"
+    @dragend="handleDragEnd"
   >
     <v-card-title class="text-subtitle-1 font-weight-bold">
       {{ task.title }}
@@ -64,11 +80,15 @@ const handleDelete = () => {
 
 <style scoped>
 .task-card {
-  cursor: pointer;
+  cursor: move;
   transition: all 0.2s ease-in-out;
 }
 
 .task-card:hover {
   transform: translateY(-2px);
+}
+
+.task-card:active {
+  cursor: grabbing;
 }
 </style>
