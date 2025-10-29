@@ -13,7 +13,7 @@ describe('KanbanColumn.vue', () => {
   })
 
   const mockColumn: Column = {
-    id: 'todo',
+    id: 'backlog',
     title: 'To Do',
     color: 'blue'
   }
@@ -23,13 +23,13 @@ describe('KanbanColumn.vue', () => {
       id: 'test-1',
       title: 'Task 1',
       description: 'Description 1',
-      status: 'todo'
+      status: 'backlog'
     },
     {
       id: 'test-2',
       title: 'Task 2',
       description: 'Description 2',
-      status: 'todo'
+      status: 'backlog'
     }
   ]
 

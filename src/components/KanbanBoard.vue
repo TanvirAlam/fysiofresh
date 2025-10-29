@@ -24,7 +24,7 @@ const handleDrop = (taskId: string, newStatus: TaskStatus) => {
         :key="column.id"
         cols="12"
         sm="6"
-        md="4"
+        md="3"
         class="pa-2"
       >
         <kanban-column
@@ -41,7 +41,7 @@ const handleDrop = (taskId: string, newStatus: TaskStatus) => {
 
 <style scoped>
 .kanban-board {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+  background: #17a2b8;
   min-height: calc(100vh - 64px);
 }
 

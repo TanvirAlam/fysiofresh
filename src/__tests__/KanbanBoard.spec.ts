@@ -19,21 +19,22 @@ describe('KanbanBoard.vue', () => {
     store.clearAllTasks()
   })
 
-  it('renders three columns', () => {
+  it('renders four columns', () => {
     const wrapper = mount(KanbanBoard, {
       global: {
         plugins: [vuetify],
       },
     })
 
-    expect(wrapper.text()).toContain('To Do')
-    expect(wrapper.text()).toContain('In Progress')
+    expect(wrapper.text()).toContain('Backlog')
+    expect(wrapper.text()).toContain('Doing')
+    expect(wrapper.text()).toContain('Review')
     expect(wrapper.text()).toContain('Done')
   })
 
   it('displays tasks in correct columns', () => {
-    store.addTask({ title: 'Todo Task', description: 'Test', status: 'todo' })
-    store.addTask({ title: 'In Progress Task', description: 'Test', status: 'in-progress' })
+    store.addTask({ title: 'Todo Task', description: 'Test', status: 'backlog' })
+    store.addTask({ title: 'Doing Task', description: 'Test', status: 'doing' })
     store.addTask({ title: 'Done Task', description: 'Test', status: 'done' })
 
     const wrapper = mount(KanbanBoard, {
@@ -43,7 +44,7 @@ describe('KanbanBoard.vue', () => {
     })
 
     expect(wrapper.text()).toContain('Todo Task')
-    expect(wrapper.text()).toContain('In Progress Task')
+    expect(wrapper.text()).toContain('Doing Task')
     expect(wrapper.text()).toContain('Done Task')
   })
 
@@ -58,7 +59,7 @@ describe('KanbanBoard.vue', () => {
     expect(wrapper.text()).toContain('No tasks')
 
     // Add a task
-    store.addTask({ title: 'New Task', description: 'Test', status: 'todo' })
+    store.addTask({ title: 'New Task', description: 'Test', status: 'backlog' })
 
     // Wait for reactivity
     await wrapper.vm.$nextTick()

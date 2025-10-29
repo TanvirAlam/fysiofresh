@@ -77,7 +77,7 @@ const handleSaveTask = (data: NewTask | { id: string; updates: Partial<Omit<Task
 
 <template>
   <v-app>
-    <v-app-bar color="primary" elevation="3" height="64">
+    <v-app-bar color="#17a2b8" elevation="3" height="64">
       <v-app-bar-title class="d-flex align-center font-weight-bold">
         <v-icon class="mr-2" size="28">mdi-view-column</v-icon>
         <span class="text-h6">{{ appTitle }}</span>

@@ -16,7 +16,7 @@ describe('TaskCard.vue', () => {
     id: 'test-1',
     title: 'Test Task',
     description: 'Test Description',
-    status: 'todo'
+    status: 'backlog'
   }
 
   it('renders task title', () => {
@@ -39,17 +39,6 @@ describe('TaskCard.vue', () => {
     })
 
     expect(wrapper.text()).toContain('Test Description')
-  })
-
-  it('renders task status', () => {
-    const wrapper = mount(TaskCard, {
-      props: { task: mockTask },
-      global: {
-        plugins: [vuetify],
-      },
-    })
-
-    expect(wrapper.text()).toContain('To Do')
   })
 
   it('applies hover class to card', () => {

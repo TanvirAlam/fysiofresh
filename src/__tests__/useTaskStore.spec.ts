@@ -15,11 +15,12 @@ describe('useTaskStore', () => {
       expect(store.allTasks.value).toEqual([])
     })
 
-    it('should have three columns defined', () => {
-      expect(store.columns.value).toHaveLength(3)
-      expect(store.columns.value[0].id).toBe('todo')
-      expect(store.columns.value[1].id).toBe('in-progress')
-      expect(store.columns.value[2].id).toBe('done')
+    it('should have four columns defined', () => {
+      expect(store.columns.value).toHaveLength(4)
+      expect(store.columns.value[0].id).toBe('backlog')
+      expect(store.columns.value[1].id).toBe('doing')
+      expect(store.columns.value[2].id).toBe('review')
+      expect(store.columns.value[3].id).toBe('done')
     })
   })
 
@@ -28,7 +29,7 @@ describe('useTaskStore', () => {
       const newTask: NewTask = {
         title: 'Test Task',
         description: 'Test Description',
-        status: 'todo'
+        status: 'backlog'
       }
 
       const addedTask = store.addTask(newTask)
@@ -41,8 +42,8 @@ describe('useTaskStore', () => {
     })
 
     it('should generate unique IDs for multiple tasks', () => {
-      const task1 = store.addTask({ title: 'Task 1', description: 'Desc 1', status: 'todo' })
-      const task2 = store.addTask({ title: 'Task 2', description: 'Desc 2', status: 'todo' })
+      const task1 = store.addTask({ title: 'Task 1', description: 'Desc 1', status: 'backlog' })
+      const task2 = store.addTask({ title: 'Task 2', description: 'Desc 2', status: 'backlog' })
 
       expect(task1.id).not.toBe(task2.id)
     })
@@ -50,7 +51,7 @@ describe('useTaskStore', () => {
 
   describe('updateTask', () => {
     it('should update an existing task', () => {
-      const task = store.addTask({ title: 'Original', description: 'Desc', status: 'todo' })
+      const task = store.addTask({ title: 'Original', description: 'Desc', status: 'backlog' })
 
       const updated = store.updateTask(task.id, { title: 'Updated' })
 
@@ -65,7 +66,7 @@ describe('useTaskStore', () => {
     })
 
     it('should update multiple properties at once', () => {
-      const task = store.addTask({ title: 'Original', description: 'Desc', status: 'todo' })
+      const task = store.addTask({ title: 'Original', description: 'Desc', status: 'backlog' })
 
       const updated = store.updateTask(task.id, {
         title: 'New Title',
@@ -81,7 +82,7 @@ describe('useTaskStore', () => {
 
   describe('deleteTask', () => {
     it('should delete an existing task', () => {
-      const task = store.addTask({ title: 'To Delete', description: 'Desc', status: 'todo' })
+      const task = store.addTask({ title: 'To Delete', description: 'Desc', status: 'backlog' })
 
       const result = store.deleteTask(task.id)
 
@@ -95,8 +96,8 @@ describe('useTaskStore', () => {
     })
 
     it('should only delete the specified task', () => {
-      const task1 = store.addTask({ title: 'Task 1', description: 'Desc 1', status: 'todo' })
-      const task2 = store.addTask({ title: 'Task 2', description: 'Desc 2', status: 'todo' })
+      const task1 = store.addTask({ title: 'Task 1', description: 'Desc 1', status: 'backlog' })
+      const task2 = store.addTask({ title: 'Task 2', description: 'Desc 2', status: 'backlog' })
 
       store.deleteTask(task1.id)
 
@@ -107,11 +108,11 @@ describe('useTaskStore', () => {
 
   describe('moveTask', () => {
     it('should move a task to a different status', () => {
-      const task = store.addTask({ title: 'Task', description: 'Desc', status: 'todo' })
+      const task = store.addTask({ title: 'Task', description: 'Desc', status: 'backlog' })
 
-      const moved = store.moveTask(task.id, 'in-progress')
+      const moved = store.moveTask(task.id, 'doing')
 
-      expect(moved?.status).toBe('in-progress')
+      expect(moved?.status).toBe('doing')
     })
 
     it('should return undefined for non-existent task', () => {
@@ -122,7 +123,7 @@ describe('useTaskStore', () => {
 
   describe('getTaskById', () => {
     it('should return task with matching id', () => {
-      const task = store.addTask({ title: 'Task', description: 'Desc', status: 'todo' })
+      const task = store.addTask({ title: 'Task', description: 'Desc', status: 'backlog' })
 
       const found = store.getTaskById(task.id)
 
@@ -138,28 +139,28 @@ describe('useTaskStore', () => {
 
   describe('getTasksByStatus', () => {
     beforeEach(() => {
-      store.addTask({ title: 'Todo 1', description: 'Desc', status: 'todo' })
-      store.addTask({ title: 'Todo 2', description: 'Desc', status: 'todo' })
-      store.addTask({ title: 'In Progress', description: 'Desc', status: 'in-progress' })
+      store.addTask({ title: 'Todo 1', description: 'Desc', status: 'backlog' })
+      store.addTask({ title: 'Todo 2', description: 'Desc', status: 'backlog' })
+      store.addTask({ title: 'Doing', description: 'Desc', status: 'doing' })
       store.addTask({ title: 'Done', description: 'Desc', status: 'done' })
     })
 
     it('should return tasks with matching status', () => {
-      const todoTasks = store.getTasksByStatus('todo')
+      const todoTasks = store.getTasksByStatus('backlog')
       expect(todoTasks.value).toHaveLength(2)
     })
 
     it('should return empty array for status with no tasks', () => {
       store.clearAllTasks()
-      const tasks = store.getTasksByStatus('todo')
+      const tasks = store.getTasksByStatus('backlog')
       expect(tasks.value).toHaveLength(0)
     })
 
     it('should reactively update when tasks change', () => {
-      const todoTasks = store.getTasksByStatus('todo')
+      const todoTasks = store.getTasksByStatus('backlog')
       const initialLength = todoTasks.value.length
 
-      store.addTask({ title: 'New Todo', description: 'Desc', status: 'todo' })
+      store.addTask({ title: 'New Todo', description: 'Desc', status: 'backlog' })
 
       expect(todoTasks.value).toHaveLength(initialLength + 1)
     })
@@ -167,22 +168,22 @@ describe('useTaskStore', () => {
 
   describe('getTaskCount', () => {
     beforeEach(() => {
-      store.addTask({ title: 'Todo 1', description: 'Desc', status: 'todo' })
-      store.addTask({ title: 'Todo 2', description: 'Desc', status: 'todo' })
-      store.addTask({ title: 'In Progress', description: 'Desc', status: 'in-progress' })
+      store.addTask({ title: 'Todo 1', description: 'Desc', status: 'backlog' })
+      store.addTask({ title: 'Todo 2', description: 'Desc', status: 'backlog' })
+      store.addTask({ title: 'Doing', description: 'Desc', status: 'doing' })
     })
 
     it('should return correct count for each status', () => {
-      expect(store.getTaskCount('todo').value).toBe(2)
-      expect(store.getTaskCount('in-progress').value).toBe(1)
+      expect(store.getTaskCount('backlog').value).toBe(2)
+      expect(store.getTaskCount('doing').value).toBe(1)
       expect(store.getTaskCount('done').value).toBe(0)
     })
 
     it('should reactively update when tasks are added', () => {
-      const todoCount = store.getTaskCount('todo')
+      const todoCount = store.getTaskCount('backlog')
       const initialCount = todoCount.value
 
-      store.addTask({ title: 'New Todo', description: 'Desc', status: 'todo' })
+      store.addTask({ title: 'New Todo', description: 'Desc', status: 'backlog' })
 
       expect(todoCount.value).toBe(initialCount + 1)
     })
@@ -190,8 +191,8 @@ describe('useTaskStore', () => {
 
   describe('clearAllTasks', () => {
     it('should remove all tasks', () => {
-      store.addTask({ title: 'Task 1', description: 'Desc', status: 'todo' })
-      store.addTask({ title: 'Task 2', description: 'Desc', status: 'in-progress' })
+      store.addTask({ title: 'Task 1', description: 'Desc', status: 'backlog' })
+      store.addTask({ title: 'Task 2', description: 'Desc', status: 'doing' })
 
       store.clearAllTasks()
 
@@ -204,8 +205,8 @@ describe('useTaskStore', () => {
       store.initializeSampleData()
 
       expect(store.allTasks.value.length).toBeGreaterThan(0)
-      expect(store.getTaskCount('todo').value).toBeGreaterThan(0)
-      expect(store.getTaskCount('in-progress').value).toBeGreaterThan(0)
+      expect(store.getTaskCount('backlog').value).toBeGreaterThan(0)
+      expect(store.getTaskCount('doing').value).toBeGreaterThan(0)
       expect(store.getTaskCount('done').value).toBeGreaterThan(0)
     })
   })
@@ -215,7 +216,7 @@ describe('useTaskStore', () => {
       const store1 = useTaskStore()
       const store2 = useTaskStore()
 
-      store1.addTask({ title: 'Shared Task', description: 'Desc', status: 'todo' })
+      store1.addTask({ title: 'Shared Task', description: 'Desc', status: 'backlog' })
 
       expect(store2.allTasks.value).toHaveLength(1)
       expect(store2.allTasks.value[0].title).toBe('Shared Task')

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import type { Column, Task, TaskStatus } from '@/types'
 import TaskCard from './TaskCard.vue'
 
@@ -17,7 +17,6 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const taskCount = computed(() => props.tasks.length)
 const isDragOver = ref(false)
 
 // Drag and drop handlers
@@ -65,26 +64,18 @@ const handleDrop = (event: DragEvent) => {
   <v-card 
     class="kanban-column" 
     :class="{ 'drag-over': isDragOver }"
-    elevation="0" 
-    color="grey-lighten-4"
+    elevation="3"
+    rounded="lg"
     @dragover="handleDragOver"
     @dragenter="handleDragEnter"
     @dragleave="handleDragLeave"
     @drop="handleDrop"
   >
-    <v-card-title class="d-flex align-center justify-space-between pa-4">
-      <div class="d-flex align-center">
-        <v-icon :color="column.color" class="mr-2">mdi-circle</v-icon>
-        <span class="text-h6">{{ column.title }}</span>
-      </div>
-      <v-chip :color="column.color" size="small">
-        {{ taskCount }}
-      </v-chip>
-    </v-card-title>
+    <div class="column-header pa-4" :style="{ backgroundColor: column.color }">
+      <span class="text-h6 font-weight-bold" style="color: #2c3e50;">{{ column.title }}</span>
+    </div>
 
-    <v-divider></v-divider>
-
-    <v-card-text class="pa-4" style="min-height: 400px; max-height: calc(100vh - 280px); overflow-y: auto;">
+    <v-card-text class="pa-4 column-body" style="min-height: 400px; max-height: calc(100vh - 280px); overflow-y: auto;">
       <div v-if="tasks.length === 0" class="empty-state text-center py-12">
         <v-icon size="64" color="grey-lighten-1">mdi-tray</v-icon>
         <p class="text-subtitle-1 text-medium-emphasis mt-4 mb-1">No tasks yet</p>
@@ -108,34 +99,42 @@ const handleDrop = (event: DragEvent) => {
   display: flex;
   flex-direction: column;
   transition: all 0.2s ease-in-out;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
 }
 
-.kanban-column.drag-over {
-  background-color: #e3f2fd !important;
-  box-shadow: 0 0 0 2px #2196F3 inset;
+.column-header {
+  text-align: center;
+  border-radius: 12px 12px 0 0;
 }
 
-.kanban-column .v-card-text {
+.column-body {
+  background: #f5f5f5;
   flex: 1;
   overflow-y: auto;
   min-height: 200px;
 }
 
+.kanban-column.drag-over {
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5) inset;
+}
+
 /* Custom scrollbar styling */
-.kanban-column .v-card-text::-webkit-scrollbar {
+.column-body::-webkit-scrollbar {
   width: 8px;
 }
 
-.kanban-column .v-card-text::-webkit-scrollbar-track {
+.column-body::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.kanban-column .v-card-text::-webkit-scrollbar-thumb {
+.column-body::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
 
-.kanban-column .v-card-text::-webkit-scrollbar-thumb:hover {
+.column-body::-webkit-scrollbar-thumb:hover {
   background: #aaa;
 }
 </style>

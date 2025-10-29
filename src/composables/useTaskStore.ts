@@ -5,9 +5,10 @@ import type { Task, TaskStatus, Column, NewTask } from '@/types'
 const tasks = ref<Task[]>([])
 
 const columns = ref<Column[]>([
-  { id: 'todo', title: 'To Do', color: 'blue' },
-  { id: 'in-progress', title: 'In Progress', color: 'orange' },
-  { id: 'done', title: 'Done', color: 'green' }
+  { id: 'backlog', title: 'Backlog', color: '#FF9AA2' },
+  { id: 'doing', title: 'Doing', color: '#FFE19C' },
+  { id: 'review', title: 'Review', color: '#B5EAD7' },
+  { id: 'done', title: 'Done', color: '#C7CEEA' }
 ])
 
 export function useTaskStore() {
@@ -80,17 +81,42 @@ export function useTaskStore() {
       {
         title: 'Design database schema',
         description: 'Create the initial database design for the project',
-        status: 'done'
+        status: 'backlog'
+      },
+      {
+        title: 'Setup project repository',
+        description: 'Initialize Git repo and configure CI/CD',
+        status: 'backlog'
       },
       {
         title: 'Build API endpoints',
         description: 'Implement RESTful API for task management',
-        status: 'in-progress'
+        status: 'doing'
+      },
+      {
+        title: 'Create UI components',
+        description: 'Design and implement reusable Vue components',
+        status: 'review'
       },
       {
         title: 'Write unit tests',
         description: 'Add comprehensive test coverage',
-        status: 'todo'
+        status: 'review'
+      },
+      {
+        title: 'Setup development environment',
+        description: 'Configure local dev tools and dependencies',
+        status: 'done'
+      },
+      {
+        title: 'Documentation',
+        description: 'Write project documentation and README',
+        status: 'done'
+      },
+      {
+        title: 'Code review process',
+        description: 'Establish code review guidelines',
+        status: 'done'
       }
     ]
 

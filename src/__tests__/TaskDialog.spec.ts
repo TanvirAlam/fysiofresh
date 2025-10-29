@@ -16,7 +16,7 @@ describe('TaskDialog.vue', () => {
     id: 'test-1',
     title: 'Test Task',
     description: 'Test Description for task',
-    status: 'todo'
+    status: 'backlog'
   }
 
   let teleportTarget: HTMLElement

@@ -18,13 +18,14 @@ const emit = defineEmits<Emits>()
 
 const formTitle = ref('')
 const formDescription = ref('')
-const formStatus = ref<TaskStatus>('todo')
+const formStatus = ref<TaskStatus>('backlog')
 const isLoading = ref(false)
 
 const statusOptions: { value: TaskStatus; title: string; color: string }[] = [
-  { value: 'todo', title: 'To Do', color: 'blue' },
-  { value: 'in-progress', title: 'In Progress', color: 'orange' },
-  { value: 'done', title: 'Done', color: 'green' }
+  { value: 'backlog', title: 'Backlog', color: '#FF9AA2' },
+  { value: 'doing', title: 'Doing', color: '#FFE19C' },
+  { value: 'review', title: 'Review', color: '#B5EAD7' },
+  { value: 'done', title: 'Done', color: '#C7CEEA' }
 ]
 
 const dialogTitle = computed(() => props.mode === 'create' ? 'Add New Task' : 'Edit Task')
@@ -62,7 +63,7 @@ watch(() => props.modelValue, (isOpen) => {
 const resetForm = () => {
   formTitle.value = ''
   formDescription.value = ''
-  formStatus.value = 'todo'
+  formStatus.value = 'backlog'
 }
 
 const handleSave = async () => {
