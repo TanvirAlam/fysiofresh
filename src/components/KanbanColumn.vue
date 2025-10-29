@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import type { Column, Task, TaskStatus } from '@/types'
 import TaskCard from './TaskCard.vue'
+import './KanbanColumn.css'
 
 interface Props {
   column: Column
@@ -89,48 +90,3 @@ const handleDrop = (event: DragEvent) => {
     </v-card-text>
   </v-card>
 </template>
-
-<style scoped>
-.kanban-column {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.2s ease-in-out;
-  border-radius: 12px;
-  overflow: hidden;
-  background: white;
-}
-
-.column-header {
-  text-align: center;
-  border-radius: 12px 12px 0 0;
-}
-
-.column-body {
-  background: #f5f5f5;
-  flex: 1;
-  overflow-y: auto;
-  min-height: 200px;
-}
-
-.kanban-column.drag-over {
-  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5) inset;
-}
-
-.column-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-.column-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.column-body::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-.column-body::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
-}
-</style>

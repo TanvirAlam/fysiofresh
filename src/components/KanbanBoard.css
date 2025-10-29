@@ -1,0 +1,20 @@
+.kanban-board {
+  background: #17a2b8;
+  min-height: calc(100vh - 64px);
+}
+
+.kanban-board .v-row {
+  height: 100%;
+}
+
+@media (max-width: 959px) {
+  .kanban-board {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .kanban-board {
+    padding: 12px !important;
+  }
+}

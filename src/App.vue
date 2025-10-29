@@ -134,5 +134,3 @@ const handleSaveTask = (data: NewTask | { id: string; updates: Partial<Omit<Task
     </v-snackbar>
   </v-app>
 </template>
-
-<style scoped></style>

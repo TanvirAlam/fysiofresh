@@ -2,6 +2,7 @@
 import type { Task, TaskStatus } from '@/types'
 import { useTaskStore } from '@/composables/useTaskStore'
 import KanbanColumn from './KanbanColumn.vue'
+import './KanbanBoard.css'
 
 interface Emits {
   (e: 'edit', task: Task): void
@@ -38,27 +39,3 @@ const handleDrop = (taskId: string, newStatus: TaskStatus) => {
     </v-row>
   </v-container>
 </template>
-
-<style scoped>
-.kanban-board {
-  background: #17a2b8;
-  min-height: calc(100vh - 64px);
-}
-
-.kanban-board .v-row {
-  height: 100%;
-}
-
-/* Responsive adjustments */
-@media (max-width: 959px) {
-  .kanban-board {
-    padding: 16px !important;
-  }
-}
-
-@media (max-width: 599px) {
-  .kanban-board {
-    padding: 12px !important;
-  }
-}
-</style>

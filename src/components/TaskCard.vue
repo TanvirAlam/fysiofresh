@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Task } from '@/types'
+import './TaskCard.css'
 
 interface Props {
   task: Task
@@ -79,37 +80,3 @@ const handleDragEnd = () => {}
     </v-card-text>
   </v-card>
 </template>
-
-<style scoped>
-.task-card {
-  cursor: move;
-  transition: all 0.2s ease-in-out;
-  border-radius: 12px;
-  background: white;
-}
-
-.task-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12) !important;
-}
-
-.task-card:active {
-  cursor: grabbing;
-  opacity: 0.8;
-}
-
-.task-card:focus-visible {
-  outline: 2px solid #1976D2;
-  outline-offset: 2px;
-}
-
-.action-btn {
-  transition: all 0.2s ease-in-out;
-  border-radius: 8px;
-}
-
-.action-btn:hover {
-  transform: scale(1.1);
-  opacity: 0.9;
-}
-</style>
