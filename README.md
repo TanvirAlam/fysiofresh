@@ -1,38 +1,70 @@
-# fysiofresh
+# 🧱 Fysiofresh Kanban Board
 
-This template should help get you started developing with Vue 3 in Vite.
+![Kanban Board Sample](./public/Kanban_Board_sample.svg)
 
-## Recommended IDE Setup
+A simple **Kanban Board** application built with **Vue 3**, **Vuetify**, and the **Composition API**.  
+This project was developed as part of a technical assignment for the **Software Developer position at Fysiofresh**.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🚀 Project Overview
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+This project demonstrates a lightweight Kanban task management board with basic CRUD operations and drag-and-drop functionality.  
+It showcases front-end architecture, component-based design, and adherence to SOLID principles.
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🧩 Tech Stack
 
-## Project Setup
+- **Vue 3**
+- **Vuetify**
+- **Composition API**
+- **Vite** (build tool)
+- **TypeScript** (optional, used where beneficial)
+- **Vitest** (for unit testing)
+- **Hosted on:** GitHub Pages / Vercel
 
-```sh
-pnpm install
-```
+---
 
-### Compile and Hot-Reload for Development
+## ⚙️ Features
 
-```sh
-pnpm dev
-```
+- 📋 **Kanban Board** with multiple status columns  
+  (e.g., To Do, In Progress, Done)
 
-### Compile and Minify for Production
+- 🎯 **Task Cards** with:
+  - Title  
+  - Description  
 
-```sh
-pnpm build
-```
+- 🧠 **Drag & Drop:** Move cards between columns easily
+
+- ✏️ **CRUD Operations:**
+  - Add a new card  
+  - Edit existing cards  
+  - Delete cards  
+
+- 💾 Local storage persistence *(optional feature)*
+
+---
+
+## 🧠 Architecture & Design Principles
+
+- Designed following **SOLID** principles:
+  - **S**ingle Responsibility: Each component handles one logical concern.
+  - **O**pen/Closed: Components are easily extendable via props and slots.
+  - **L**iskov Substitution: Interface-consistent components for reusability.
+  - **I**nterface Segregation: Minimal component APIs.
+  - **D**ependency Inversion: Separation of logic and presentation.
+
+---
+
+## 🧪 Testing (Optional)
+
+Basic unit tests are implemented using **Vitest** for:
+- Component rendering
+- Event emission
+- State management logic
+
+Run tests locally:
+
+```bash
+npm run test
