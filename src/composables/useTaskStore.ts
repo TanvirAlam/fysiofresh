@@ -1,19 +1,11 @@
 import { ref, computed, readonly } from 'vue'
-import type { Task, TaskStatus, Column, NewTask } from '@/types'
+import type { Task, TaskStatus, NewTask } from '@/types'
+import { generateId, TASK_COLUMNS, SAMPLE_TASKS } from '@/utils'
 
 const tasks = ref<Task[]>([])
-
-const columns = ref<Column[]>([
-  { id: 'backlog', title: 'Backlog', color: '#FF9AA2' },
-  { id: 'doing', title: 'Doing', color: '#FFE19C' },
-  { id: 'review', title: 'Review', color: '#B5EAD7' },
-  { id: 'done', title: 'Done', color: '#C7CEEA' }
-])
+const columns = ref(TASK_COLUMNS)
 
 export function useTaskStore() {
-  const generateId = (): string => {
-    return `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-  }
 
   const getTasksByStatus = (status: TaskStatus) => {
     return computed(() => tasks.value.filter(task => task.status === status))
@@ -28,7 +20,7 @@ export function useTaskStore() {
   const addTask = (newTask: NewTask): Task => {
     const task: Task = {
       ...newTask,
-      id: generateId()
+      id: generateId('task')
     }
     tasks.value.push(task)
     return task
@@ -65,50 +57,7 @@ export function useTaskStore() {
   }
 
   const initializeSampleData = (): void => {
-    const sampleTasks: NewTask[] = [
-      {
-        title: 'Design database schema',
-        description: 'Create the initial database design for the project',
-        status: 'backlog'
-      },
-      {
-        title: 'Setup project repository',
-        description: 'Initialize Git repo and configure CI/CD',
-        status: 'backlog'
-      },
-      {
-        title: 'Build API endpoints',
-        description: 'Implement RESTful API for task management',
-        status: 'doing'
-      },
-      {
-        title: 'Create UI components',
-        description: 'Design and implement reusable Vue components',
-        status: 'review'
-      },
-      {
-        title: 'Write unit tests',
-        description: 'Add comprehensive test coverage',
-        status: 'review'
-      },
-      {
-        title: 'Setup development environment',
-        description: 'Configure local dev tools and dependencies',
-        status: 'done'
-      },
-      {
-        title: 'Documentation',
-        description: 'Write project documentation and README',
-        status: 'done'
-      },
-      {
-        title: 'Code review process',
-        description: 'Establish code review guidelines',
-        status: 'done'
-      }
-    ]
-
-    sampleTasks.forEach(task => addTask(task))
+    SAMPLE_TASKS.forEach(task => addTask(task))
   }
 
   return {
