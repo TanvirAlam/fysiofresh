@@ -10,37 +10,31 @@ const appTitle = ref('Fysiofresh Kanban Board')
 const store = useTaskStore()
 const toast = useToast()
 
-// Dialog state
 const showDialog = ref(false)
 const dialogMode = ref<'create' | 'edit'>('create')
 const selectedTask = ref<Task | null>(null)
 
-// Delete confirmation
 const showDeleteConfirm = ref(false)
 const taskToDelete = ref<string | null>(null)
 
 onMounted(() => {
-  // Initialize with sample data for demonstration
   if (store.allTasks.value.length === 0) {
     store.initializeSampleData()
   }
 })
 
-// Add Task
 const handleAddTask = () => {
   dialogMode.value = 'create'
   selectedTask.value = null
   showDialog.value = true
 }
 
-// Edit Task
 const handleEditTask = (task: Task) => {
   dialogMode.value = 'edit'
   selectedTask.value = task
   showDialog.value = true
 }
 
-// Delete Task
 const handleDeleteTask = (taskId: string) => {
   taskToDelete.value = taskId
   showDeleteConfirm.value = true
@@ -61,14 +55,11 @@ const cancelDelete = () => {
   showDeleteConfirm.value = false
 }
 
-// Save Task (Create or Update)
 const handleSaveTask = (data: NewTask | { id: string; updates: Partial<Omit<Task, 'id'>> }) => {
   if ('id' in data) {
-    // Edit mode
     const task = store.updateTask(data.id, data.updates)
     toast.success(`Task "${task?.title || 'Task'}" updated`)
   } else {
-    // Create mode
     const task = store.addTask(data)
     toast.success(`Task "${task.title}" created`)
   }
@@ -104,7 +95,6 @@ const handleSaveTask = (data: NewTask | { id: string; updates: Partial<Omit<Task
       />
     </v-main>
 
-    <!-- Task Dialog (Create/Edit) -->
     <task-dialog
       v-model="showDialog"
       :mode="dialogMode"
@@ -112,7 +102,6 @@ const handleSaveTask = (data: NewTask | { id: string; updates: Partial<Omit<Task
       @save="handleSaveTask"
     />
 
-    <!-- Delete Confirmation Dialog -->
     <v-dialog v-model="showDeleteConfirm" max-width="400">
       <v-card>
         <v-card-title class="text-h5">Delete Task?</v-card-title>
@@ -127,7 +116,6 @@ const handleSaveTask = (data: NewTask | { id: string; updates: Partial<Omit<Task
       </v-card>
     </v-dialog>
 
-    <!-- Toast Notification -->
     <v-snackbar
       v-model="toast.toastState.value.show"
       :color="toast.toastState.value.color"

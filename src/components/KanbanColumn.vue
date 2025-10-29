@@ -19,7 +19,6 @@ const emit = defineEmits<Emits>()
 
 const isDragOver = ref(false)
 
-// Drag and drop handlers
 const handleDragOver = (event: DragEvent) => {
   event.preventDefault()
   if (event.dataTransfer) {
@@ -34,7 +33,6 @@ const handleDragEnter = (event: DragEvent) => {
 }
 
 const handleDragLeave = (event: DragEvent) => {
-  // Only set to false if we're leaving the column entirely
   const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
   const x = event.clientX
   const y = event.clientY
@@ -52,7 +50,6 @@ const handleDrop = (event: DragEvent) => {
     const taskId = event.dataTransfer.getData('taskId')
     const sourceStatus = event.dataTransfer.getData('taskStatus')
     
-    // Only emit if moving to a different column
     if (taskId && sourceStatus !== props.column.id) {
       emit('drop', taskId, props.column.id)
     }
@@ -120,7 +117,6 @@ const handleDrop = (event: DragEvent) => {
   box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5) inset;
 }
 
-/* Custom scrollbar styling */
 .column-body::-webkit-scrollbar {
   width: 8px;
 }

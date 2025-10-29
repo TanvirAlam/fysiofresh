@@ -31,7 +31,6 @@ const statusOptions: { value: TaskStatus; title: string; color: string }[] = [
 const dialogTitle = computed(() => props.mode === 'create' ? 'Add New Task' : 'Edit Task')
 const saveButtonText = computed(() => props.mode === 'create' ? 'Create' : 'Update')
 
-// Validation rules
 const titleRules = [
   (v: string) => !!v || 'Title is required',
   (v: string) => v.length >= 3 || 'Title must be at least 3 characters'
@@ -47,15 +46,12 @@ const isFormValid = computed(() => {
          formDescription.value.length >= 10
 })
 
-// Watch for dialog open/close and task changes
 watch(() => props.modelValue, (isOpen) => {
   if (isOpen && props.task) {
-    // Edit mode - populate form
     formTitle.value = props.task.title
     formDescription.value = props.task.description
     formStatus.value = props.task.status
   } else if (isOpen) {
-    // Create mode - reset form
     resetForm()
   }
 })
@@ -71,7 +67,6 @@ const handleSave = async () => {
 
   isLoading.value = true
   
-  // Simulate async operation (in real app, this would be API call)
   await new Promise(resolve => setTimeout(resolve, 300))
 
   if (props.mode === 'create') {

@@ -21,7 +21,6 @@ const handleDelete = () => {
   emit('delete', props.task.id)
 }
 
-// Drag and drop handlers
 const handleDragStart = (event: DragEvent) => {
   if (event.dataTransfer) {
     event.dataTransfer.effectAllowed = 'move'
@@ -30,9 +29,7 @@ const handleDragStart = (event: DragEvent) => {
   }
 }
 
-const handleDragEnd = () => {
-  // Clean up any drag state if needed
-}
+const handleDragEnd = () => {}
 </script>
 
 <template>
@@ -101,13 +98,11 @@ const handleDragEnd = () => {
   opacity: 0.8;
 }
 
-/* Better focus state for accessibility */
 .task-card:focus-visible {
   outline: 2px solid #1976D2;
   outline-offset: 2px;
 }
 
-/* Action button styles */
 .action-btn {
   transition: all 0.2s ease-in-out;
   border-radius: 8px;
