@@ -19,6 +19,7 @@ const emit = defineEmits<Emits>()
 const formTitle = ref('')
 const formDescription = ref('')
 const formStatus = ref<TaskStatus>('todo')
+const isLoading = ref(false)
 
 const statusOptions: { value: TaskStatus; title: string; color: string }[] = [
   { value: 'todo', title: 'To Do', color: 'blue' },
@@ -64,8 +65,13 @@ const resetForm = () => {
   formStatus.value = 'todo'
 }
 
-const handleSave = () => {
-  if (!isFormValid.value) return
+const handleSave = async () => {
+  if (!isFormValid.value || isLoading.value) return
+
+  isLoading.value = true
+  
+  // Simulate async operation (in real app, this would be API call)
+  await new Promise(resolve => setTimeout(resolve, 300))
 
   if (props.mode === 'create') {
     const newTask: NewTask = {
@@ -85,10 +91,12 @@ const handleSave = () => {
     })
   }
 
+  isLoading.value = false
   handleClose()
 }
 
 const handleClose = () => {
+  if (isLoading.value) return
   emit('update:modelValue', false)
   resetForm()
 }
@@ -162,6 +170,7 @@ const handleClose = () => {
         <v-btn
           variant="text"
           @click="handleClose"
+          :disabled="isLoading"
         >
           Cancel
         </v-btn>
@@ -169,7 +178,8 @@ const handleClose = () => {
           color="primary"
           variant="elevated"
           @click="handleSave"
-          :disabled="!isFormValid"
+          :disabled="!isFormValid || isLoading"
+          :loading="isLoading"
         >
           {{ saveButtonText }}
         </v-btn>

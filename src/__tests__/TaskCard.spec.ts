@@ -49,7 +49,7 @@ describe('TaskCard.vue', () => {
       },
     })
 
-    expect(wrapper.text()).toContain('todo')
+    expect(wrapper.text()).toContain('To Do')
   })
 
   it('applies hover class to card', () => {

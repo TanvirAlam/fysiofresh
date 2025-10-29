@@ -84,10 +84,11 @@ const handleDrop = (event: DragEvent) => {
 
     <v-divider></v-divider>
 
-    <v-card-text class="pa-3" style="min-height: 400px; max-height: calc(100vh - 280px); overflow-y: auto;">
-      <div v-if="tasks.length === 0" class="text-center text-medium-emphasis py-8">
-        <v-icon size="48" color="grey-lighten-1">mdi-inbox</v-icon>
-        <p class="mt-2">No tasks</p>
+    <v-card-text class="pa-4" style="min-height: 400px; max-height: calc(100vh - 280px); overflow-y: auto;">
+      <div v-if="tasks.length === 0" class="empty-state text-center py-12">
+        <v-icon size="64" color="grey-lighten-1">mdi-tray</v-icon>
+        <p class="text-subtitle-1 text-medium-emphasis mt-4 mb-1">No tasks yet</p>
+        <p class="text-caption text-medium-emphasis">Drag tasks here or create a new one</p>
       </div>
       
       <task-card

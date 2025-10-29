@@ -17,13 +17,15 @@ const handleDrop = (taskId: string, newStatus: TaskStatus) => {
 </script>
 
 <template>
-  <v-container fluid class="kanban-board pa-4">
-    <v-row>
+  <v-container fluid class="kanban-board pa-6">
+    <v-row class="ma-0" no-gutters>
       <v-col
         v-for="column in store.columns.value"
         :key="column.id"
         cols="12"
+        sm="6"
         md="4"
+        class="pa-2"
       >
         <kanban-column
           :column="column"
@@ -39,11 +41,24 @@ const handleDrop = (taskId: string, newStatus: TaskStatus) => {
 
 <style scoped>
 .kanban-board {
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
   min-height: calc(100vh - 64px);
 }
 
 .kanban-board .v-row {
   height: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 959px) {
+  .kanban-board {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .kanban-board {
+    padding: 12px !important;
+  }
 }
 </style>
