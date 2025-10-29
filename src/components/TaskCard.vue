@@ -45,30 +45,33 @@ const handleDragEnd = () => {
     @dragend="handleDragEnd"
   >
     <v-card-text class="pa-3">
-      <div class="d-flex justify-space-between align-start mb-2">
-        <p class="text-body-2 mb-0 flex-grow-1">
+      <div class="d-flex justify-space-between align-center mb-2">
+        <p class="text-body-2 mb-0 flex-grow-1 pr-3">
           {{ task.title }}
         </p>
-        <div class="d-flex">
+        <div class="d-flex flex-shrink-0" style="gap: 8px;">
           <v-btn
             icon
-            size="x-small"
-            variant="text"
-            density="compact"
+            size="small"
+            variant="flat"
+            density="comfortable"
+            color="blue-grey-lighten-4"
             @click.stop="handleEdit"
+            class="action-btn"
           >
-            <v-icon size="16">mdi-pencil</v-icon>
+            <v-icon size="18" color="blue-grey-darken-2">mdi-pencil</v-icon>
             <v-tooltip activator="parent" location="top">Edit</v-tooltip>
           </v-btn>
           <v-btn
             icon
-            size="x-small"
-            variant="text"
-            density="compact"
-            color="error"
+            size="small"
+            variant="flat"
+            density="comfortable"
+            color="red-lighten-4"
             @click.stop="handleDelete"
+            class="action-btn"
           >
-            <v-icon size="16">mdi-delete</v-icon>
+            <v-icon size="18" color="red-darken-1">mdi-delete</v-icon>
             <v-tooltip activator="parent" location="top">Delete</v-tooltip>
           </v-btn>
         </div>
@@ -102,5 +105,16 @@ const handleDragEnd = () => {
 .task-card:focus-visible {
   outline: 2px solid #1976D2;
   outline-offset: 2px;
+}
+
+/* Action button styles */
+.action-btn {
+  transition: all 0.2s ease-in-out;
+  border-radius: 8px;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
 }
 </style>
